@@ -44,17 +44,18 @@ Everything already points at `/resume.pdf` — the nav button, the hero CTA, the
 contact ledger, the footer, and the no-JavaScript fallback. No code changes
 needed. You can delete `public/README-resume.txt` afterwards.
 
-### 2. Replace the placeholder domain
+### 2. If the domain ever changes
 
-Four files contain `https://sujalpareek.vercel.app/` as a placeholder. Once
-Vercel assigns your real domain, search-and-replace it in:
+The site is currently pinned to `https://portfoliosujal-gamma.vercel.app`. If
+you add a custom domain, search-and-replace that origin in three files:
 
 - `index.html` — `<link rel="canonical">`, `og:url`, `og:image`, `twitter:image`, JSON-LD `url`
 - `public/robots.txt` — the `Sitemap:` line
 - `public/sitemap.xml` — the `<loc>` value
 
 Open Graph images must be absolute URLs, so link previews on LinkedIn, Slack and
-WhatsApp will not render until this is correct.
+WhatsApp break silently if this is stale — the tags keep pointing at a host that
+returns 404 and the preview renders with no image.
 
 ---
 

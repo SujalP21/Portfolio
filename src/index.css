@@ -1,0 +1,326 @@
+/* ============================================================================
+   Design tokens — "Dossier"
+   A print-inspired system: warm bone paper, warm near-black ink, one muted
+   brick accent used as an editorial marker rather than decoration.
+   ========================================================================== */
+
+:root {
+  /* -- Day edition: drafting paper -------------------------------------- */
+  --paper: #f1f2f4;
+  --paper-raised: #e7e9ed;
+  --paper-sunk: #dde0e6;
+
+  --ink: #0e1116;
+  --ink-secondary: #454b55;
+  /* 4.65:1 on --paper. The mono labels are 11px, which WCAG treats as normal
+     text, so this cannot be lightened for looks. */
+  --ink-tertiary: #676e7a;
+
+  --rule: #d0d4db;
+  --rule-strong: #aab1bd;
+
+  --accent: #1d3fa0;
+  --accent-hover: #16307c;
+  --accent-wash: rgba(29, 63, 160, 0.07);
+
+  --selection-bg: rgba(29, 63, 160, 0.16);
+
+  --grain-opacity: 0.03;
+  --grain-blend: multiply;
+
+  /* -- Type -------------------------------------------------------------- */
+  --font-display: 'Newsreader', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Fluid display scale — clamps keep long names from wrapping badly on phones. */
+  --step-display: clamp(3.4rem, 13vw, 9.5rem);
+  --step-h2: clamp(2rem, 5.2vw, 3.4rem);
+  --step-h3: clamp(1.35rem, 2.6vw, 1.9rem);
+  --step-body: clamp(1rem, 0.97rem + 0.18vw, 1.09rem);
+  --step-small: 0.875rem;
+  --step-label: 0.6875rem;
+
+  /* -- Layout ------------------------------------------------------------ */
+  --measure: 62ch;
+  --shell-max: 78rem;
+  --shell-pad: clamp(1.25rem, 5vw, 4.5rem);
+  --gutter-col: 13rem; /* sticky section-marker column on desktop */
+  --gutter-gap: clamp(2rem, 5vw, 4.5rem);
+  --section-space: clamp(5rem, 11vh, 9rem);
+  --nav-h: 3.75rem;
+
+  /* -- Motion ------------------------------------------------------------ */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast: 160ms;
+  --dur-mid: 320ms;
+
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  /* -- Night edition: blueprint ------------------------------------------ */
+  --paper: #0b0e13;
+  --paper-raised: #141922;
+  --paper-sunk: #07090d;
+
+  --ink: #e3e7ee;
+  --ink-secondary: #98a0ae;
+  /* 5.0:1 on --paper — same constraint as the day edition. */
+  --ink-tertiary: #7c8494;
+
+  --rule: #1f2632;
+  --rule-strong: #38414f;
+
+  --accent: #7d9ff0;
+  --accent-hover: #9ab5f6;
+  --accent-wash: rgba(125, 159, 240, 0.1);
+
+  --selection-bg: rgba(125, 159, 240, 0.24);
+
+  --grain-opacity: 0.045;
+  --grain-blend: overlay;
+
+  color-scheme: dark;
+}
+
+/* ============================================================================
+   Reset
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* Anchor jumps must clear the fixed masthead. */
+  scroll-padding-top: calc(var(--nav-h) + 1.5rem);
+}
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--step-body);
+  line-height: 1.62;
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background-color var(--dur-mid) var(--ease-out),
+    color var(--dur-mid) var(--ease-out);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 400;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--selection-bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+/* ============================================================================
+   Paper grain — a fixed, non-interactive noise layer. One tiny inline SVG,
+   no network request, no repaint cost (it never moves).
+   ========================================================================== */
+
+.grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: var(--grain-blend);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Nothing animated here; grain is deliberately static to avoid repaint churn. */
+}
+
+/* ============================================================================
+   Shared primitives
+   ========================================================================== */
+
+.shell {
+  width: 100%;
+  max-width: var(--shell-max);
+  margin-inline: auto;
+  padding-inline: var(--shell-pad);
+}
+
+/* The asymmetric spine: a narrow sticky marker column + a wide content column.
+   Collapses to a single column below the tablet breakpoint. */
+.spine {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.75rem;
+}
+
+@media (min-width: 62rem) {
+  .spine {
+    grid-template-columns: var(--gutter-col) minmax(0, 1fr);
+    gap: var(--gutter-gap);
+  }
+}
+
+/* Small uppercase mono label — the system's connective tissue. */
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+}
+
+.serif {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.measure {
+  max-width: var(--measure);
+}
+
+.hr {
+  height: 1px;
+  background: var(--rule);
+  border: 0;
+  transform-origin: left;
+}
+
+/* Editorial link: rule sits below the baseline and thickens on hover. */
+.inkLink {
+  color: var(--ink);
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  padding-bottom: 1px;
+  transition: color var(--dur-fast) var(--ease-out),
+    background-size var(--dur-fast) var(--ease-out);
+}
+
+.inkLink:hover {
+  color: var(--accent);
+  background-size: 100% 2px;
+}
+
+.skipLink {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: var(--step-small);
+}
+
+.skipLink:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}
+
+/* ============================================================================
+   View Transitions — the theme swap wipes in as a circle from the toggle.
+   The default cross-fade is disabled so the clip-path animation reads cleanly;
+   the new edition is painted over the old one rather than blended with it.
+   ========================================================================== */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+/* The fixed masthead and grain would otherwise be captured twice. */
+::view-transition-group(root) {
+  animation-duration: 480ms;
+}
+
+/* ============================================================================
+   Reduced motion — kill transforms/transitions, keep the layout identical.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

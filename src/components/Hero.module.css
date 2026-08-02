@@ -1,0 +1,263 @@
+.hero {
+  position: relative;
+  z-index: 2;
+  padding-top: calc(var(--nav-h) + clamp(2rem, 8vh, 5rem));
+  padding-bottom: clamp(2rem, 5vh, 3.5rem);
+}
+
+/* --- Masthead ------------------------------------------------------------- */
+
+.mastheadRuleThick {
+  height: 3px;
+  background: var(--ink);
+  transform-origin: left;
+}
+
+.mastheadRuleThin {
+  height: 1px;
+  background: var(--rule-strong);
+  transform-origin: left;
+}
+
+.masthead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.6rem;
+}
+
+.mastheadCenter {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .mastheadCenter {
+    display: inline;
+  }
+}
+
+/* --- Nameplate ------------------------------------------------------------ */
+
+.nameplate {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.75rem, 4vw, 3rem);
+  padding-top: clamp(1.5rem, 4vh, 2.75rem);
+  align-items: end;
+}
+
+@media (min-width: 62rem) {
+  .nameplate {
+    /* Asymmetric split: the name gets the lion's share, the specimen table
+       sits in a narrow measured column on the right. */
+    grid-template-columns: minmax(0, 1.55fr) minmax(15rem, 0.85fr);
+  }
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: var(--step-display);
+  font-weight: 400;
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+  margin: 0;
+}
+
+.nameLine {
+  display: block;
+  overflow: hidden;
+  /* The reveal mask clips at the content box, but glyph ink routinely sits
+     outside its advance width — Newsreader's roman 'S' and especially the
+     italic 'P' overhang to the left and were being sliced. Pad the mask out
+     on every side, then pull it back with an equal negative margin so the
+     optical position is unchanged. */
+  padding: 0.08em 0.2em 0.14em;
+  margin: -0.08em -0.2em -0.14em;
+}
+
+/* Indent the second line via the word, not the mask: overriding the mask's
+   padding would re-clip the italic capital this fix exists to protect. */
+.nameLineTwo .nameWord {
+  margin-left: clamp(0.75rem, 6vw, 4.5rem);
+}
+
+.nameWord {
+  display: block;
+  will-change: transform;
+}
+
+.nameItalic {
+  font-style: italic;
+  letter-spacing: -0.03em;
+}
+
+/* --- Specimen table (dot leaders) ----------------------------------------- */
+
+.specimen {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--rule);
+  margin: 0;
+}
+
+.specimenRow {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: baseline;
+  padding-block: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.specimenTerm {
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+}
+
+.specimenDetail {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.specimenValue {
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.specimenMeta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Lower block ---------------------------------------------------------- */
+
+.lower {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.75rem, 4vw, 3rem);
+  padding-top: clamp(2.5rem, 7vh, 4.5rem);
+  align-items: start;
+}
+
+@media (min-width: 62rem) {
+  .lower {
+    grid-template-columns: minmax(0, 1.55fr) minmax(15rem, 0.85fr);
+  }
+}
+
+.positioning {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.6vw, 1.95rem);
+  line-height: 1.32;
+  letter-spacing: -0.015em;
+  max-width: 30ch;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.ctaRow {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--ink);
+  padding: 0.8rem 1.15rem;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.ctaPrimary:hover {
+  background: var(--accent);
+}
+
+.ctaArrow {
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.ctaPrimary:hover .ctaArrow {
+  transform: translate(2px, -2px);
+}
+
+.ctaSecondaryGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-secondary);
+  border-bottom: 1px solid var(--rule-strong);
+  padding-bottom: 3px;
+  transition: color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.ctaSecondary:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* --- Foot ----------------------------------------------------------------- */
+
+.footRule {
+  height: 1px;
+  background: var(--rule);
+  transform-origin: left;
+  margin-top: clamp(3rem, 8vh, 5rem);
+}
+
+.scrollCue {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.75rem;
+}
+
+.scrollLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ink-secondary);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.scrollLink:hover {
+  color: var(--accent);
+}
+
+.scrollLink:hover .label {
+  color: var(--accent);
+}
+
+.availability {
+  text-align: right;
+  color: var(--ink-tertiary);
+}

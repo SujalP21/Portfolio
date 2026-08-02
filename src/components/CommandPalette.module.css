@@ -1,0 +1,195 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(3rem, 12vh, 8rem) 1rem 2rem;
+  background: color-mix(in srgb, var(--ink) 62%, transparent);
+}
+
+@supports (backdrop-filter: blur(2px)) {
+  .backdrop {
+    backdrop-filter: blur(3px);
+  }
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  width: min(38rem, 100%);
+  max-height: min(32rem, 80vh);
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+}
+
+/* --- Input ---------------------------------------------------------------- */
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--rule);
+  flex-shrink: 0;
+}
+
+.prompt {
+  color: var(--accent);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0;
+}
+
+/* The field is auto-focused the moment the palette opens and is the only text
+   input in the dialog, so the caret and the accent prompt already signal focus.
+   A full ring here just reads as browser chrome. */
+.input:focus,
+.input:focus-visible {
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--ink-tertiary);
+}
+
+.closeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--ink-tertiary);
+  flex-shrink: 0;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.closeButton:hover {
+  color: var(--accent);
+}
+
+/* --- Results -------------------------------------------------------------- */
+
+.list {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.5rem 0;
+  flex: 1;
+}
+
+.group + .group {
+  margin-top: 0.35rem;
+}
+
+.groupLabel {
+  padding: 0.5rem 1rem 0.35rem;
+  color: var(--ink-tertiary);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  color: var(--ink-secondary);
+  border-left: 2px solid transparent;
+  transition: none;
+}
+
+.rowActive {
+  background: var(--accent-wash);
+  border-left-color: var(--accent);
+  color: var(--ink);
+}
+
+.rowIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1rem;
+  flex-shrink: 0;
+  color: var(--ink-tertiary);
+}
+
+.rowActive .rowIcon {
+  color: var(--accent);
+}
+
+.rowLabel {
+  font-size: 0.92rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rowHint {
+  margin-left: auto;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: var(--ink-tertiary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.rowArrow {
+  color: var(--ink-tertiary);
+  flex-shrink: 0;
+}
+
+.rowActive .rowArrow {
+  color: var(--accent);
+}
+
+.empty {
+  padding: 1.5rem 1rem;
+  font-size: 0.9rem;
+  color: var(--ink-tertiary);
+  text-align: center;
+}
+
+/* --- Footer hints --------------------------------------------------------- */
+
+.foot {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.6rem 1rem;
+  border-top: 1px solid var(--rule);
+  flex-shrink: 0;
+}
+
+.footHint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+  color: var(--ink-tertiary);
+}
+
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.3rem;
+  height: 1.3rem;
+  padding-inline: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--ink-secondary);
+  background: var(--paper-raised);
+  border: 1px solid var(--rule);
+}

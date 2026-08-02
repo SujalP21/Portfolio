@@ -1,0 +1,133 @@
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-top: 1px solid var(--rule-strong);
+  border-left: 1px solid var(--rule);
+}
+
+@media (min-width: 40rem) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.cell {
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: clamp(1.25rem, 3vw, 1.9rem);
+  transition: background-color var(--dur-mid) var(--ease-out);
+}
+
+.link:hover {
+  background: var(--accent-wash);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.platform {
+  color: var(--ink);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.link:hover .platform {
+  color: var(--accent);
+}
+
+.arrow {
+  color: var(--ink-tertiary);
+  transition: transform var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.link:hover .arrow {
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .link:hover .arrow {
+    transform: translate(3px, -3px);
+  }
+}
+
+/* The figure is the point of this block — set it large and let it breathe. */
+.figure {
+  margin-top: clamp(1.5rem, 4vh, 2.5rem);
+  font-size: clamp(3rem, 9vw, 4.75rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+}
+
+.figureLabel {
+  margin-top: 0.6rem;
+  color: var(--ink-tertiary);
+}
+
+/* --- Platform badge ------------------------------------------------------- */
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: clamp(1.25rem, 3vh, 1.75rem);
+}
+
+.badgeFrame {
+  display: block;
+  flex-shrink: 0;
+  width: 3.25rem;
+  height: 3.25rem;
+  overflow: hidden;
+  border: 1px solid var(--rule-strong);
+  background: var(--paper-raised);
+}
+
+.badgeImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* The badge artwork sits in the upper third of a tall promo card. */
+  object-position: center 22%;
+  display: block;
+}
+
+.badgeCaption {
+  font-size: 0.78rem;
+  line-height: 1.42;
+  color: var(--ink-secondary);
+  min-width: 0;
+}
+
+.foot {
+  margin-top: clamp(1rem, 2.5vh, 1.5rem);
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.handle {
+  font-size: 0.78rem;
+  color: var(--accent);
+}
+
+.note {
+  font-size: 0.82rem;
+  color: var(--ink-secondary);
+  text-align: right;
+}

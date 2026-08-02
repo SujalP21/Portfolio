@@ -1,0 +1,107 @@
+.footer {
+  position: relative;
+  z-index: 2;
+  padding-bottom: clamp(2rem, 5vh, 3rem);
+}
+
+.rule {
+  height: 3px;
+  background: var(--ink);
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  justify-content: space-between;
+  padding-block: clamp(2rem, 5vh, 3rem);
+}
+
+@media (min-width: 48rem) {
+  .top {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+}
+
+.backToTop {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.backName {
+  font-size: clamp(2rem, 6vw, 3.25rem);
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.backToTop:hover .backName {
+  color: var(--accent);
+}
+
+.backLabel {
+  color: var(--ink-tertiary);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.backToTop:hover .backLabel {
+  color: var(--accent);
+}
+
+.social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-secondary);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 3px;
+  transition: color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.socialLink:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* --- Colophon ------------------------------------------------------------- */
+
+.colophon {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: clamp(1.5rem, 4vh, 2rem);
+  border-top: 1px solid var(--rule);
+}
+
+@media (min-width: 62rem) {
+  .colophon {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+}
+
+.colophonItem {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  color: var(--ink-tertiary);
+}
+
+.colophonTerm {
+  color: var(--ink-tertiary);
+  white-space: nowrap;
+}

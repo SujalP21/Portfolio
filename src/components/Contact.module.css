@@ -1,0 +1,126 @@
+.lead {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  line-height: 1.45;
+  color: var(--ink-secondary);
+  max-width: 44ch;
+}
+
+/* --- Headline email ------------------------------------------------------- */
+
+.emailWrap {
+  margin-top: clamp(2rem, 5vh, 3rem);
+  margin-bottom: clamp(2.5rem, 6vh, 3.5rem);
+}
+
+.email {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.15em;
+  font-family: var(--font-display);
+  /* Sized off the container so a long address never overflows on a phone. */
+  font-size: clamp(1.55rem, 6.2vw, 3.4rem);
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: var(--ink);
+  max-width: 100%;
+  word-break: break-word;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.emailText {
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  transition: background-size var(--dur-mid) var(--ease-out);
+  padding-bottom: 0.06em;
+}
+
+.email:hover {
+  color: var(--accent);
+}
+
+.email:hover .emailText {
+  background-size: 100% 2px;
+}
+
+.emailArrow {
+  flex-shrink: 0;
+  margin-top: 0.3em;
+  color: var(--accent);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .email:hover .emailArrow {
+    transform: translate(3px, -3px);
+  }
+}
+
+/* --- Contact ledger ------------------------------------------------------- */
+
+.ledger {
+  margin: 0;
+  border-top: 1px solid var(--rule-strong);
+  max-width: 46rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+  padding-block: 0.9rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+@media (min-width: 44rem) {
+  .row {
+    grid-template-columns: 10.5rem minmax(0, 1fr);
+    gap: 2rem;
+  }
+}
+
+.term {
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+}
+
+.value {
+  margin: 0;
+  min-width: 0;
+}
+
+.valueLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.95rem;
+  color: var(--ink);
+  word-break: break-word;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.valueLink:hover {
+  color: var(--accent);
+}
+
+.rowArrow {
+  color: var(--ink-tertiary);
+  transition: transform var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.valueLink:hover .rowArrow {
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .valueLink:hover .rowArrow {
+    transform: translate(2px, -2px);
+  }
+}

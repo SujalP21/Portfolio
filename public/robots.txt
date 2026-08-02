@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# TODO(deploy): update to your real origin once Vercel assigns the domain.
+Sitemap: https://sujalpareek.vercel.app/sitemap.xml

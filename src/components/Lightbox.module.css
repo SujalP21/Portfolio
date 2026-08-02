@@ -1,0 +1,154 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(0.75rem, 3vw, 2.5rem);
+  /* Ink wash rather than pure black — stays inside the palette. */
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
+}
+
+@supports (backdrop-filter: blur(2px)) {
+  .backdrop {
+    backdrop-filter: blur(3px);
+  }
+}
+
+.panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(72rem, 100%);
+  max-height: 100%;
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+  outline: none;
+}
+
+/* --- Title bar ------------------------------------------------------------ */
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem clamp(0.75rem, 2vw, 1.25rem);
+  border-bottom: 1px solid var(--rule);
+  flex-shrink: 0;
+}
+
+.barTitle {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  color: var(--ink);
+  min-width: 0;
+}
+
+.counter {
+  color: var(--ink-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  color: var(--ink-secondary);
+  border: 1px solid transparent;
+  flex-shrink: 0;
+  transition: color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.close:hover {
+  color: var(--accent);
+  border-color: var(--rule);
+}
+
+/* --- Figure --------------------------------------------------------------- */
+
+.figure {
+  margin: 0;
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.image {
+  width: auto;
+  max-width: 100%;
+  /* Leaves room for the bar, caption and controls on short viewports. */
+  max-height: min(68vh, 46rem);
+  height: auto;
+  margin-inline: auto;
+  object-fit: contain;
+  background: var(--paper-raised);
+  border: 1px solid var(--rule);
+}
+
+.caption {
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--ink-secondary);
+  text-align: center;
+  max-width: 60ch;
+  margin-inline: auto;
+}
+
+/* --- Controls ------------------------------------------------------------- */
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem clamp(0.75rem, 2vw, 1.25rem);
+  border-top: 1px solid var(--rule);
+  flex-shrink: 0;
+}
+
+.nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.navButton {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-secondary);
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--rule);
+  transition: color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.navButton:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.openRaw {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.openRaw:hover {
+  color: var(--accent);
+}

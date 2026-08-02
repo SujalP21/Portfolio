@@ -1,0 +1,148 @@
+.slider {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-width: 42rem;
+}
+
+.frame {
+  display: block;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--rule-strong);
+  background: var(--paper-raised);
+  aspect-ratio: 4 / 3;
+  cursor: zoom-in;
+  /* Let the browser own vertical scrolling; we only claim horizontal intent. */
+  touch-action: pan-y;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+/* A hairline inset, the way a plate sits inside its rule on the page. */
+.frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.frame:hover,
+.frame:focus-visible {
+  border-color: var(--accent);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  /* Event photography carries loud brand colour that fights the palette;
+     easing the saturation at rest settles it into the page. */
+  filter: saturate(0.78);
+  transition: filter var(--dur-mid) var(--ease-out);
+  will-change: transform;
+}
+
+.frame:hover .slide,
+.frame:focus-visible .slide {
+  filter: saturate(1);
+}
+
+.zoomHint {
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.6rem;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  color: var(--paper);
+  background: color-mix(in srgb, var(--ink) 72%, transparent);
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.frame:hover .zoomHint,
+.frame:focus-visible .zoomHint {
+  opacity: 1;
+}
+
+/* --- Caption + controls --------------------------------------------------- */
+
+.captionRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.caption {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--ink-tertiary);
+  min-width: 0;
+  flex: 1 1 16rem;
+}
+
+.figNo {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.figText {
+  min-width: 0;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-secondary);
+  border: 1px solid var(--rule);
+  transition: color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.arrow:hover {
+  color: var(--paper);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.counter {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-tertiary);
+  padding-inline: 0.35rem;
+  white-space: nowrap;
+}

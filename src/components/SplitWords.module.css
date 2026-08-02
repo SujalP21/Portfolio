@@ -1,0 +1,17 @@
+/* Same overhang allowance as the hero nameplate: the mask is padded out on
+   every side and pulled back by an equal negative margin, so ascenders,
+   descenders and side bearings are never sliced by overflow:hidden.
+   Because the margins cancel the padding exactly, the real space characters
+   between masks still render at their natural width. */
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding: 0.08em 0.14em 0.16em;
+  margin: -0.08em -0.14em -0.16em;
+}
+
+.word {
+  display: inline-block;
+  will-change: transform;
+}

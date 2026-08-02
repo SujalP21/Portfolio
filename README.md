@@ -46,8 +46,9 @@ needed. You can delete `public/README-resume.txt` afterwards.
 
 ### 2. If the domain ever changes
 
-The site is currently pinned to `https://portfoliosujal-gamma.vercel.app`. If
-you add a custom domain, search-and-replace that origin in three files:
+The site is pinned to `https://www.sujalpareek.dev` (the apex `sujalpareek.dev`
+308-redirects to `www`, so `www` is the canonical host). If that ever changes,
+search-and-replace the origin in three files:
 
 - `index.html` — `<link rel="canonical">`, `og:url`, `og:image`, `twitter:image`, JSON-LD `url`
 - `public/robots.txt` — the `Sitemap:` line
